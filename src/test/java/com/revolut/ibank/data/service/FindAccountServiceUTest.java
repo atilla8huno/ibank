@@ -1,6 +1,8 @@
 package com.revolut.ibank.data.service;
 
 import com.revolut.ibank.data.entity.AccountEntity;
+import com.revolut.ibank.domain.PersonalAccount;
+import com.revolut.ibank.mapper.AccountMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -16,6 +18,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -29,9 +32,12 @@ class FindAccountServiceUTest {
     @Mock
     private AccountRepository repository;
 
+    @Mock
+    private AccountMapper mapper;
+
     @BeforeEach
     void setup() {
-        service = new AccountEntityService(repository);
+        service = new AccountService(repository, mapper);
     }
 
     @Test
@@ -56,19 +62,22 @@ class FindAccountServiceUTest {
         mockRepository(accountNumber);
 
         //when
-        Optional<AccountEntity> accountEntity
+        Optional<PersonalAccount> personalAccount
                 = service.findByAccountNumber(accountNumber);
 
         //then
-        assertNotNull(accountEntity);
-        assertTrue(accountEntity.isPresent());
-        assertEquals(accountNumber, accountEntity.get().getAccountNumber());
+        assertNotNull(personalAccount);
+        assertTrue(personalAccount.isPresent());
+        assertEquals(accountNumber, personalAccount.get().getAccountNumber());
 
         verify(repository).findByAccountNumber(eq(accountNumber));
+        verify(mapper).mapToPersonalAccount(any());
     }
 
     private void mockRepository(Long accountNumber) {
         when(repository.findByAccountNumber(eq(accountNumber)))
                 .thenReturn(new AccountEntity("AB", accountNumber, TEN));
+        when(mapper.mapToPersonalAccount(any()))
+                .thenReturn(new PersonalAccount("AB", accountNumber, TEN));
     }
 }
