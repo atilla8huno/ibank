@@ -16,9 +16,7 @@ import java.math.BigDecimal;
 import java.util.stream.Stream;
 
 import static java.math.BigDecimal.TEN;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.params.provider.Arguments.arguments;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
@@ -26,10 +24,10 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-@DisplayName("Test suite of the class: CreateAccountService")
-class CreateAccountServiceUTest {
+@DisplayName("Test suite of the class: UpdateBalanceAccountService")
+class UpdateBalanceAccountServiceUTest {
 
-    private CreateAccountService service;
+    private UpdateBalanceAccountService service;
 
     @Mock
     private AccountRepository repository;
@@ -40,51 +38,49 @@ class CreateAccountServiceUTest {
     }
 
     @Test
-    @DisplayName("Should save personal account for new account with " +
-            "account number between 2000 and 10000")
-    void givenNameAndBalance_whenSave_thenShouldCreateNewAccount() {
+    @DisplayName("Should update balance of an account")
+    void givenAccountNumberAndBalance_whenUpdateBalance_thenShouldUpdateBalance() {
         //given
         mockRepository();
 
-        String name = "AB";
+        Long accountNumber = 123123L;
         BigDecimal balance = TEN;
-        int minAccountNumber = 2000;
-        int maxAccountNumber = 10000;
 
         //when
-        Long accountNumber = service.save(name, balance);
+        service.updateBalance(accountNumber, balance);
 
         //then
-        assertNotNull(accountNumber);
-        assertTrue(accountNumber > minAccountNumber);
-        assertTrue(accountNumber < maxAccountNumber);
-
-        verify(repository).save(eq(new AccountEntity(name, accountNumber, balance)));
+        verify(repository).findByAccountNumber(eq(accountNumber));
+        verify(repository).save(any());
     }
 
     @ParameterizedTest
-    @MethodSource("invalidParametersToCreateAccount")
-    @DisplayName("Should NOT accept invalid parameters when saving new account")
-    void givenInvalidParameters_whenSave_thenShouldThrowException(
-            String name,
+    @MethodSource("invalidParametersToUpdateBalance")
+    @DisplayName("Should NOT accept invalid parameters when updating balance")
+    void givenInvalidParameters_whenUpdateBalance_thenShouldThrowException(
+            Long accountNumber,
             BigDecimal balance) {
         //given parameters
         //when
-        Executable save = () -> service.save(name, balance);
+        Executable save = () -> service.updateBalance(accountNumber, balance);
 
         //then
         assertThrows(IllegalArgumentException.class, save);
     }
 
-    private void mockRepository() {
-        when(repository.save(any()))
-                .thenReturn(new AccountEntity("AB", 123L, TEN));
-    }
-
-    private static Stream<Arguments> invalidParametersToCreateAccount() {
+    private static Stream<Arguments> invalidParametersToUpdateBalance() {
         return Stream.of(
-                arguments("AB", null),
+                arguments(123L, null),
                 arguments(null, TEN)
         );
+    }
+
+    private void mockRepository() {
+        AccountEntity dummyAccount = new AccountEntity("AB", 123L, TEN);
+
+        when(repository.findByAccountNumber(any()))
+                .thenReturn(dummyAccount);
+        when(repository.save(any()))
+                .thenReturn(dummyAccount);
     }
 }

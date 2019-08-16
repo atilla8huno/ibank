@@ -13,7 +13,8 @@ import java.util.Random;
 
 @Service
 @AllArgsConstructor
-public class AccountService implements FindAccountService, CreateAccountService {
+public class AccountService implements FindAccountService, CreateAccountService,
+        UpdateBalanceAccountService {
 
     private static final int MAX_ACCOUNT_NUMBER = 10_000;
     private static final int MIN_ACCOUNT_NUMBER = 2_000;
@@ -37,6 +38,14 @@ public class AccountService implements FindAccountService, CreateAccountService 
         repository.save(accountEntity);
 
         return accountNumber;
+    }
+
+    @Override
+    public void updateBalance(@NonNull Long accountNumber,
+                              @NonNull BigDecimal balance) {
+        AccountEntity account = repository.findByAccountNumber(accountNumber);
+        account.setBalance(balance);
+        repository.save(account);
     }
 
     private long generateAccountNumber() {

@@ -31,6 +31,7 @@ public class AccountEntity {
     @Column(unique = true, nullable = false)
     private Long accountNumber;
 
+    @Setter
     @Column(nullable = false)
     private BigDecimal balance;
 
