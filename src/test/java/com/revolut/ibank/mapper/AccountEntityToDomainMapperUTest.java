@@ -14,25 +14,25 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-@DisplayName("Test suite of the class: AccountMapper")
-class AccountMapperUTest {
+@DisplayName("Test suite of the class: AccountEntityToDomainMapper")
+class AccountEntityToDomainMapperUTest {
 
-    private AccountMapper mapper;
+    private AccountEntityToDomainMapper entityMapper;
 
     @BeforeEach
     void setup() {
-        mapper = new AccountMapperImpl();
+        entityMapper = new AccountMapper();
     }
 
     @Test
     @DisplayName("Should NOT accept invalid arguments when mapping to personal account")
-    void givenInvalidAccountEntity_whenMaptoPersonalAccount_thenShouldThrowException() {
+    void givenInvalidAccountEntity_whenMapToPersonalAccount_thenShouldThrowException() {
         //given
         AccountEntity accountEntity = null;
 
         //when
         Executable mapToPersonalAccount =
-                () -> mapper.mapToPersonalAccount(accountEntity);
+                () -> entityMapper.mapToPersonalAccount(accountEntity);
 
         //then
         assertThrows(IllegalArgumentException.class, mapToPersonalAccount);
@@ -48,7 +48,7 @@ class AccountMapperUTest {
         AccountEntity accountEntity = new AccountEntity(name, accountNumber, balance);
 
         //when
-        PersonalAccount personalAccount = mapper.mapToPersonalAccount(accountEntity);
+        PersonalAccount personalAccount = entityMapper.mapToPersonalAccount(accountEntity);
 
         //then
         assertNotNull(personalAccount);
