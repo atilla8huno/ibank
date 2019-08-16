@@ -38,6 +38,22 @@ class AccountRepositoryITest {
     }
 
     @Test
+    @DisplayName("Should find account by account number")
+    void givenExistingAccountNumber_whenFindByAccountNumber_thenShouldFindAccount() {
+        //given
+        Long accountNumber = 123123L;
+        AccountEntity accountEntity = new AccountEntity("Costumer A", accountNumber, TEN);
+        repository.save(accountEntity);
+
+        //when
+        AccountEntity entityFound = repository.findByAccountNumber(accountNumber);
+
+        //then
+        assertNotNull(entityFound);
+        assertEquals(accountNumber, entityFound.getAccountNumber());
+    }
+
+    @Test
     @DisplayName("Should increase version when saving multiple times")
     void givenAccountEntity_whenSavingMultipleTimes_thenShouldIncreaseVersion() {
         //given
