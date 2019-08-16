@@ -1,5 +1,5 @@
 # ibank [![Build Status](https://api.travis-ci.com/atilla8huno/ibank.svg?branch=master)](https://travis-ci.org/atilla8huno/ibank)
-Bank app to transfer money
+Bank app for transferring money
 
 # Revolut test
 Design and implement a RESTful API (including data model and the backing implementation)  for money transfers between accounts.  
