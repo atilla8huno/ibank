@@ -3,7 +3,7 @@ package com.revolut.ibank.data.service;
 import com.revolut.ibank.data.entity.AccountEntity;
 import com.revolut.ibank.domain.Account;
 import com.revolut.ibank.domain.PersonalAccount;
-import com.revolut.ibank.mapper.AccountMapper;
+import com.revolut.ibank.mapper.AccountEntityToDomainMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -34,7 +34,7 @@ class FindAccountServiceUTest {
     private AccountRepository repository;
 
     @Mock
-    private AccountMapper mapper;
+    private AccountEntityToDomainMapper mapper;
 
     @BeforeEach
     void setup() {

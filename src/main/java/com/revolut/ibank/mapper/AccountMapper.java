@@ -8,8 +8,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 @AllArgsConstructor
-public class AccountMapper
-        implements AccountDomainToEntityMapper, AccountEntityToDomainMapper {
+public class AccountMapper implements AccountEntityToDomainMapper {
 
     @Override
     public PersonalAccount mapToPersonalAccount(@NonNull AccountEntity accountEntity) {
@@ -17,13 +16,5 @@ public class AccountMapper
                 accountEntity.getName(),
                 accountEntity.getAccountNumber(),
                 accountEntity.getBalance());
-    }
-
-    @Override
-    public AccountEntity mapToAccountEntity(@NonNull PersonalAccount personalAccount) {
-        return new AccountEntity(
-                personalAccount.getName(),
-                personalAccount.getAccountNumber(),
-                personalAccount.getBalance());
     }
 }

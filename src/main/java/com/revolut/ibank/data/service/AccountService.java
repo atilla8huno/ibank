@@ -2,7 +2,7 @@ package com.revolut.ibank.data.service;
 
 import com.revolut.ibank.data.entity.AccountEntity;
 import com.revolut.ibank.domain.Account;
-import com.revolut.ibank.mapper.AccountMapper;
+import com.revolut.ibank.mapper.AccountEntityToDomainMapper;
 import lombok.AllArgsConstructor;
 import lombok.NonNull;
 import org.springframework.stereotype.Service;
@@ -20,7 +20,7 @@ public class AccountService implements FindAccountService, CreateAccountService,
     private static final int MIN_ACCOUNT_NUMBER = 2_000;
 
     private AccountRepository repository;
-    private AccountMapper mapper;
+    private AccountEntityToDomainMapper mapper;
 
     @Override
     public Optional<Account> findByAccountNumber(@NonNull Long accountNumber) {
