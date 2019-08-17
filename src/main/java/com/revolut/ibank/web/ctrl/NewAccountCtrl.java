@@ -20,12 +20,12 @@ import static reactor.core.publisher.Mono.just;
         produces = APPLICATION_JSON_VALUE
 )
 @AllArgsConstructor
-public class NewAccountCtrl {
+class NewAccountCtrl {
 
     private NewAccountAPIService apiService;
 
     @PostMapping
-    public Mono<NewAccountResponse> createNewAccount(@RequestBody NewAccountRequest request) {
+    Mono<NewAccountResponse> createNewAccount(@RequestBody NewAccountRequest request) {
         return just(apiService.createNewAccount(request));
     }
 }

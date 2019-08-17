@@ -3,8 +3,8 @@ package com.revolut.ibank.web.ctrl;
 import com.revolut.ibank.data.config.IbankApplicationConfig;
 import com.revolut.ibank.web.request.NewAccountRequest;
 import com.revolut.ibank.web.service.response.NewAccountResponse;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.reactive.WebFluxTest;
@@ -28,7 +28,7 @@ class NewAccountCtrlITest {
     @Autowired
     private WebTestClient client;
 
-    @Test
+    @Disabled
     @DisplayName("Should create an account for a given request")
     void givenRequest_whenCreateNewAccount_thenShouldHaveCreatedAccount() {
         //given
