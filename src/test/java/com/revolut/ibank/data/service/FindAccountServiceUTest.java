@@ -1,6 +1,7 @@
 package com.revolut.ibank.data.service;
 
 import com.revolut.ibank.data.entity.AccountEntity;
+import com.revolut.ibank.domain.Account;
 import com.revolut.ibank.domain.PersonalAccount;
 import com.revolut.ibank.mapper.AccountMapper;
 import org.junit.jupiter.api.BeforeEach;
@@ -62,7 +63,7 @@ class FindAccountServiceUTest {
         mockRepository(accountNumber);
 
         //when
-        Optional<PersonalAccount> personalAccount
+        Optional<Account> personalAccount
                 = service.findByAccountNumber(accountNumber);
 
         //then

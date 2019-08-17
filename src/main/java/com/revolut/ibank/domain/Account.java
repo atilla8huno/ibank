@@ -7,13 +7,15 @@ import lombok.ToString;
 
 import java.math.BigDecimal;
 
+@Getter
 @ToString
 @AllArgsConstructor
 public abstract class Account {
 
-    @Getter
     @Setter
     private BigDecimal balance;
+
+    private final Long accountNumber;
 
     public abstract void transferFrom(Account accountFrom,
                                       BigDecimal amountToTransfer);

@@ -13,14 +13,12 @@ import static java.math.BigDecimal.ZERO;
 public class PersonalAccount extends Account {
 
     private final String name;
-    private final Long accountNumber;
 
     public PersonalAccount(@NonNull String name,
                            @NonNull Long accountNumber,
                            @NonNull BigDecimal balance) {
-        super(balance);
+        super(balance, accountNumber);
         this.name = name;
-        this.accountNumber = accountNumber;
     }
 
     @Override

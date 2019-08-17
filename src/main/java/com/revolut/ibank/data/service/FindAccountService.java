@@ -1,10 +1,10 @@
 package com.revolut.ibank.data.service;
 
-import com.revolut.ibank.domain.PersonalAccount;
+import com.revolut.ibank.domain.Account;
 
 import java.util.Optional;
 
 public interface FindAccountService {
 
-    Optional<PersonalAccount> findByAccountNumber(Long accountNumber);
+    Optional<Account> findByAccountNumber(Long accountNumber);
 }

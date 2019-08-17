@@ -1,7 +1,7 @@
 package com.revolut.ibank.data.service;
 
 import com.revolut.ibank.data.entity.AccountEntity;
-import com.revolut.ibank.domain.PersonalAccount;
+import com.revolut.ibank.domain.Account;
 import com.revolut.ibank.mapper.AccountMapper;
 import lombok.AllArgsConstructor;
 import lombok.NonNull;
@@ -23,7 +23,7 @@ public class AccountService implements FindAccountService, CreateAccountService,
     private AccountMapper mapper;
 
     @Override
-    public Optional<PersonalAccount> findByAccountNumber(@NonNull Long accountNumber) {
+    public Optional<Account> findByAccountNumber(@NonNull Long accountNumber) {
         return Optional
                 .ofNullable(repository.findByAccountNumber(accountNumber))
                 .map(mapper::mapToPersonalAccount);
