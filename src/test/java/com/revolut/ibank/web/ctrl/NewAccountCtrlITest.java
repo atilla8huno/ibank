@@ -33,10 +33,12 @@ class NewAccountCtrlITest {
         //given
         String body = "{ \"clientName\": \"John Doe\", \"initialBalance\": 500.0 }";
 
+        //when
         client.perform(post("/api/account")
                 .contentType(APPLICATION_JSON)
                 .content(body)
                 .accept(APPLICATION_JSON))
+                //then
                 .andExpect(status().isOk())
 //                .andExpect(status().isCreated())
                 .andExpect(content().contentType(APPLICATION_JSON_UTF8))

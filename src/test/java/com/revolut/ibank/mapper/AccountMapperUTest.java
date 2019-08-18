@@ -14,14 +14,14 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-@DisplayName("Test suite of the class: AccountEntityToDomainMapper")
-class AccountEntityToDomainMapperUTest {
+@DisplayName("Test suite of the class: AccountMapper")
+class AccountMapperUTest {
 
-    private AccountEntityToDomainMapper entityMapper;
+    private AccountMapper entityMapper;
 
     @BeforeEach
     void setup() {
-        entityMapper = new AccountMapper();
+        entityMapper = new AccountMapperImpl();
     }
 
     @Test
