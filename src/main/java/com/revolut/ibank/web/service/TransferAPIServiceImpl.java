@@ -8,7 +8,6 @@ import com.revolut.ibank.web.service.response.TransferResponse;
 import lombok.AllArgsConstructor;
 import lombok.NonNull;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 
@@ -22,7 +21,6 @@ public class TransferAPIServiceImpl implements TransferAPIService {
     private UpdateBalanceAccountService updateBalanceAccountService;
 
     @Override
-    @Transactional
     public TransferResponse transfer(@NonNull TransferRequest transferRequest) {
 
         final Long accountNumberTo = transferRequest.getAccountNumberTo();

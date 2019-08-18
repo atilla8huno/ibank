@@ -6,7 +6,6 @@ import com.revolut.ibank.web.service.response.NewAccountResponse;
 import lombok.AllArgsConstructor;
 import lombok.NonNull;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @AllArgsConstructor
@@ -17,7 +16,6 @@ public class NewAccountAPIServiceImpl implements NewAccountAPIService {
     private CreateAccountService createAccountService;
 
     @Override
-    @Transactional
     public NewAccountResponse createNewAccount(@NonNull NewAccountRequest request) {
 
         Long accountNumber = createAccountService

@@ -1,54 +1,47 @@
 package com.revolut.ibank.web.ctrl;
 
-import com.revolut.ibank.data.config.IbankApplicationConfig;
-import com.revolut.ibank.web.request.NewAccountRequest;
-import com.revolut.ibank.web.service.response.NewAccountResponse;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.reactive.WebFluxTest;
-import org.springframework.test.context.ContextConfiguration;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
-import org.springframework.test.web.reactive.server.WebTestClient;
+import org.springframework.test.web.servlet.MockMvc;
 
-import static java.math.BigDecimal.TEN;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
 import static org.springframework.http.MediaType.APPLICATION_JSON_UTF8;
-import static org.springframework.web.reactive.function.BodyInserters.fromObject;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@WebFluxTest
+@DirtiesContext
+@SpringBootTest
+@AutoConfigureMockMvc
 @ExtendWith(SpringExtension.class)
 @DisplayName("Test suite of the class: NewAccountCtrl")
-@ContextConfiguration(classes = IbankApplicationConfig.class)
 class NewAccountCtrlITest {
 
     @Autowired
-    private WebTestClient client;
+    private MockMvc client;
 
-    @Disabled
+    @Test
     @DisplayName("Should create an account for a given request")
-    void givenRequest_whenCreateNewAccount_thenShouldHaveCreatedAccount() {
+    void givenRequest_whenCreateNewAccount_thenShouldHaveCreatedAccount() throws Exception {
         //given
-        NewAccountRequest request = new NewAccountRequest("John Doe", TEN);
+        String body = "{ \"clientName\": \"John Doe\", \"initialBalance\": 500.0 }";
 
-        //when
-        client.post()
-                .uri("/account")
-                .body(fromObject(request))
-                .accept(APPLICATION_JSON)
-                .exchange()
-                //then
-                .expectStatus().isOk()
-                .expectHeader().contentType(APPLICATION_JSON_UTF8)
-                .expectBody(NewAccountResponse.class)
-                .consumeWith(response -> {
-                    NewAccountResponse responseBody = response.getResponseBody();
-
-                    assertEquals("Success", responseBody.getMessage());
-                    assertNotNull(responseBody.getAccountNumber());
-                });
+        client.perform(post("/account")
+                .contentType(APPLICATION_JSON)
+                .content(body)
+                .accept(APPLICATION_JSON))
+                .andExpect(status().isOk())
+//                .andExpect(status().isCreated())
+                .andExpect(content().contentType(APPLICATION_JSON_UTF8))
+//                .andExpect(header().string("Location", "/account/12345"))
+                .andExpect(jsonPath("$.message").value("Success"))
+                .andExpect(jsonPath("$.accountNumber").isNumber());
     }
 }

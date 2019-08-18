@@ -7,11 +7,10 @@ import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
-import reactor.core.publisher.Mono;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
-import static reactor.core.publisher.Mono.just;
 
 @RestController
 @RequestMapping(
@@ -25,7 +24,8 @@ class NewAccountCtrl {
     private NewAccountAPIService apiService;
 
     @PostMapping
-    Mono<NewAccountResponse> createNewAccount(@RequestBody NewAccountRequest request) {
-        return just(apiService.createNewAccount(request));
+    @ResponseBody
+    NewAccountResponse createNewAccount(@RequestBody NewAccountRequest request) {
+        return apiService.createNewAccount(request);
     }
 }
