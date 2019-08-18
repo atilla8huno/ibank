@@ -2,4 +2,3 @@ language: java
 script: mvn clean verify
 after_success:
   - mvn clean test jacoco:report coveralls:report
-repo_token: yVWUJb9sZFeWAMzQFL83uMs0HrWKU3Kv2
