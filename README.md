@@ -1,4 +1,4 @@
-# ibank [![Build Status](https://api.travis-ci.com/atilla8huno/ibank.svg?branch=master)](https://travis-ci.org/atilla8huno/ibank) [![Coverage Status](https://coveralls.io/repos/github/atilla8huno/ibank/badge.svg?branch=master)](https://coveralls.io/github/atilla8huno/ibank?branch=master) [![Codacy Badge](https://api.codacy.com/project/badge/Grade/440e985ff73043949d29aa9b4be0ec37)](https://www.codacy.com/app/atilla8huno/badger?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=atilla8huno/ibank&amp;utm_campaign=atilla8huno)
+# ibank [![Build Status](https://api.travis-ci.com/atilla8huno/ibank.svg?branch=master)](https://travis-ci.org/atilla8huno/ibank) [![Coverage Status](https://coveralls.io/repos/github/atilla8huno/ibank/badge.svg?branch=master)](https://coveralls.io/github/atilla8huno/ibank?branch=master) [![Codacy Badge](https://api.codacy.com/project/badge/Grade/440e985ff73043949d29aa9b4be0ec37)](https://www.codacy.com/app/atilla8huno/ibank?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=atilla8huno/ibank&amp;utm_campaign=Badge_Grade)
 
 Bank app for transferring money
 
