@@ -1,4 +1,4 @@
-# ibank [![Build Status](https://api.travis-ci.com/atilla8huno/ibank.svg?branch=master)](https://travis-ci.org/atilla8huno/ibank)[![Coverage Status](https://coveralls.io/repos/github/atilla8huno/ibank/badge.svg?branch=master)](https://coveralls.io/github/atilla8huno/ibank?branch=master)
+# ibank [![Build Status](https://api.travis-ci.com/atilla8huno/ibank.svg?branch=master)](https://travis-ci.org/atilla8huno/ibank) [![Coverage Status](https://coveralls.io/repos/github/atilla8huno/ibank/badge.svg?branch=master)](https://coveralls.io/github/atilla8huno/ibank?branch=master)
 Bank app for transferring money
 
 # Revolut test
