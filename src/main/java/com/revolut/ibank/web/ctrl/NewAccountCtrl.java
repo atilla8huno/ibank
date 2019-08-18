@@ -19,7 +19,7 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
         produces = APPLICATION_JSON_VALUE
 )
 @AllArgsConstructor
-class NewAccountCtrl {
+public class NewAccountCtrl {
 
     private NewAccountAPIService apiService;
 
