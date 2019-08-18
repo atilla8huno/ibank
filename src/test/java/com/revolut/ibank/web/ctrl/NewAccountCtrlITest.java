@@ -33,14 +33,14 @@ class NewAccountCtrlITest {
         //given
         String body = "{ \"clientName\": \"John Doe\", \"initialBalance\": 500.0 }";
 
-        client.perform(post("/account")
+        client.perform(post("/api/account")
                 .contentType(APPLICATION_JSON)
                 .content(body)
                 .accept(APPLICATION_JSON))
                 .andExpect(status().isOk())
 //                .andExpect(status().isCreated())
                 .andExpect(content().contentType(APPLICATION_JSON_UTF8))
-//                .andExpect(header().string("Location", "/account/12345"))
+//                .andExpect(header().string("Location", "/api/account/12345"))
                 .andExpect(jsonPath("$.message").value("Success"))
                 .andExpect(jsonPath("$.accountNumber").isNumber());
     }

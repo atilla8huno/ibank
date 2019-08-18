@@ -1,6 +1,7 @@
 package com.revolut.ibank.data.entity;
 
-import lombok.EqualsAndHashCode;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -11,11 +12,13 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Version;
 import java.math.BigDecimal;
+import java.util.Objects;
 
 @Entity
 @Getter
+@Builder
 @NoArgsConstructor
-@EqualsAndHashCode(of = {"name", "accountNumber", "balance"})
+@AllArgsConstructor
 public class AccountEntity {
 
     @Id
@@ -42,5 +45,24 @@ public class AccountEntity {
         this.name = name;
         this.accountNumber = accountNumber;
         this.balance = balance;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof AccountEntity)) return false;
+        AccountEntity that = (AccountEntity) o;
+        return id != null
+                ? Objects.equals(id, that.id)
+                : name.equals(that.name) &&
+                accountNumber.equals(that.accountNumber) &&
+                balance.equals(that.balance);
+    }
+
+    @Override
+    public int hashCode() {
+        return id != null
+                ? Objects.hash(id)
+                : Objects.hash(name, accountNumber, balance);
     }
 }
