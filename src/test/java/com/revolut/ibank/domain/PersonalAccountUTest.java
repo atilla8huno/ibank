@@ -23,6 +23,23 @@ import static org.junit.jupiter.params.provider.Arguments.arguments;
 class PersonalAccountUTest {
 
     @Test
+    @DisplayName("Shoudl have two different instances of same object")
+    void givenTwoInstancesSameAccountNumber_whenEquals_thenShouldBeEqual() {
+        //given
+        long accountNumber = 123L;
+        Account account1 = new PersonalAccount("JD", accountNumber, TEN);
+        Account account2 = new PersonalAccount("JD", accountNumber, TEN);
+
+        //when
+        boolean account1EqualsTo2 = account1.equals(account2);
+        boolean account2EqualsTo1 = account2.equals(account1);
+
+        //then
+        assertTrue(account1EqualsTo2);
+        assertTrue(account2EqualsTo1);
+    }
+
+    @Test
     @DisplayName("Should instantiate new account with parameters")
     void givenParameters_whenNew_thenShouldCreateAccount() {
         //given

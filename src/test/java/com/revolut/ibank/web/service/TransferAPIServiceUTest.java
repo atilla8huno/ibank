@@ -19,17 +19,18 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.mockito.junit.jupiter.MockitoSettings;
 
 import java.math.BigDecimal;
+import java.util.HashSet;
 import java.util.Optional;
 import java.util.stream.Stream;
 
 import static java.math.BigDecimal.ONE;
 import static java.math.BigDecimal.TEN;
+import static java.util.Arrays.asList;
 import static java.util.Optional.empty;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.params.provider.Arguments.arguments;
-import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
@@ -112,6 +113,8 @@ class TransferAPIServiceUTest {
 
         mockAccounts(accountNumberFrom, accountNumberTo, accountFrom, accountTo);
 
+        HashSet<Account> accounts = new HashSet<>(asList(accountTo, accountFrom));
+
         TransferRequest transferRequest =
                 new TransferRequest(accountNumberFrom, accountNumberTo, amountToTransfer);
 
@@ -127,8 +130,7 @@ class TransferAPIServiceUTest {
 
         verify(accountTo).transferFrom(eq(accountFrom), eq(amountToTransfer));
 
-        verify(updateBalanceAccountService).updateBalance(eq(accountNumberFrom), any());
-        verify(updateBalanceAccountService).updateBalance(eq(accountNumberTo), any());
+        verify(updateBalanceAccountService).updateBalance(eq(accounts));
     }
 
     private void mockAccounts(Long accountNumberFrom,

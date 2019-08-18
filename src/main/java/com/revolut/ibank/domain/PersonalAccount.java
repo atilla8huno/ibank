@@ -1,5 +1,6 @@
 package com.revolut.ibank.domain;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.ToString;
@@ -10,6 +11,7 @@ import static java.math.BigDecimal.ZERO;
 
 @Getter
 @ToString(callSuper = true)
+@EqualsAndHashCode(callSuper = true)
 public class PersonalAccount extends Account {
 
     private final String name;

@@ -10,6 +10,9 @@ import lombok.NonNull;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.util.HashSet;
+
+import static java.util.Arrays.asList;
 
 @Service
 @AllArgsConstructor
@@ -32,17 +35,16 @@ public class TransferAPIServiceImpl implements TransferAPIService {
 
         accountTo.transferFrom(accountFrom, amountToTransfer);
 
-        updateAccount(accountTo);
-        updateAccount(accountFrom);
+        updateAccounts(accountTo, accountFrom);
 
         return TransferResponse.builder()
                 .message(SUCCESS_MESSAGE)
                 .build();
     }
 
-    private void updateAccount(Account account) {
+    private void updateAccounts(Account... accounts) {
         updateBalanceAccountService
-                .updateBalance(account.getAccountNumber(), account.getBalance());
+                .updateBalance(new HashSet<>(asList(accounts)));
     }
 
     private Account findAccount(Long accountNumber) {

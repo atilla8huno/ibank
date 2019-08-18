@@ -1,25 +1,26 @@
 package com.revolut.ibank.data.service;
 
 import com.revolut.ibank.data.entity.AccountEntity;
+import com.revolut.ibank.domain.Account;
+import com.revolut.ibank.domain.PersonalAccount;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.api.function.Executable;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.Arguments;
-import org.junit.jupiter.params.provider.MethodSource;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.math.BigDecimal;
-import java.util.stream.Stream;
+import java.util.HashSet;
+import java.util.Set;
 
 import static java.math.BigDecimal.TEN;
+import static java.util.Arrays.asList;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.params.provider.Arguments.arguments;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -38,41 +39,38 @@ class UpdateBalanceAccountServiceUTest {
     }
 
     @Test
-    @DisplayName("Should update balance of an account")
-    void givenAccountNumberAndBalance_whenUpdateBalance_thenShouldUpdateBalance() {
+    @DisplayName("Should updata balance of an account")
+    void givenListOfAccounts_whenUpdateBalance_thenShouldUpdateBalance() {
         //given
         mockRepository();
 
+        String name = "JD";
         Long accountNumber = 123123L;
         BigDecimal balance = TEN;
 
+        Set<Account> accounts = new HashSet<>(asList(
+                new PersonalAccount(name, accountNumber, balance),
+                new PersonalAccount(name, accountNumber + 1, balance)));
+
         //when
-        service.updateBalance(accountNumber, balance);
+        service.updateBalance(accounts);
 
         //then
         verify(repository).findByAccountNumber(eq(accountNumber));
-        verify(repository).save(any());
+        verify(repository, times(accounts.size())).save(any());
     }
 
-    @ParameterizedTest
-    @MethodSource("invalidParametersToUpdateBalance")
+    @Test
     @DisplayName("Should NOT accept invalid parameters when updating balance")
-    void givenInvalidParameters_whenUpdateBalance_thenShouldThrowException(
-            Long accountNumber,
-            BigDecimal balance) {
-        //given parameters
+    void givenInvalidParameter_whenUpdateBalance_thenShouldThrowException() {
+        //given
+        Set<Account> accounts = null;
+
         //when
-        Executable save = () -> service.updateBalance(accountNumber, balance);
+        Executable save = () -> service.updateBalance(accounts);
 
         //then
         assertThrows(IllegalArgumentException.class, save);
-    }
-
-    private static Stream<Arguments> invalidParametersToUpdateBalance() {
-        return Stream.of(
-                arguments(123L, null),
-                arguments(null, TEN)
-        );
     }
 
     private void mockRepository() {
